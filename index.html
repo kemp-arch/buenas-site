@@ -3,16 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Buenas Consulting – Digital strategi, produktledning &amp; kommunikation</title>
+<title>Buenas Consulting</title>
 <meta name="description" content="Buenas Consulting hjälper organisationer att förenkla komplexitet – från digital strategi och produktägarskap till teknisk dokumentation och UX writing. Med Anna i spetsen.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Lexend:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --green:#014932;
     --green-light:#0a6b4a;
     --peach:#ffefea;
+    --brown:#7d4434;
     --white:#ffffff;
     --ink:#1a1a1a;
     --muted:#5b5b5b;
@@ -43,35 +44,102 @@
     display:flex;
     align-items:center;
     justify-content:space-between;
+    gap:16px;
     padding:22px 0;
     border-bottom:1px solid var(--border);
   }
-  .nav .logo{display:flex;align-items:center;gap:10px;font-size:1.15rem;letter-spacing:.02em;}
-  .nav .logo .mark{
-    width:14px;height:14px;border-radius:4px;background:var(--green);
-    display:inline-block;
+  .nav{flex-wrap:wrap;row-gap:12px;}
+  .nav .logo{display:block;line-height:0;}
+  .nav .logo img{height:64px;width:auto;display:block;}
+  @media (max-width:640px){
+    .nav .logo img{height:40px;}
+    .nav nav .cta{padding:9px 14px;}
   }
-  .nav nav{display:flex;gap:28px;align-items:center;}
+  @media (max-width:400px){ .nav .logo img{height:34px;} }
+  .nav nav{display:flex;gap:24px;align-items:center;}
   .nav nav a{
     text-decoration:none;color:var(--ink);font-size:0.95rem;font-weight:500;
   }
   .nav nav a:hover{color:var(--green);}
   .nav .cta{
-    background:var(--green);color:#fff;padding:10px 20px;border-radius:8px;
-    text-decoration:none;font-size:0.9rem;font-weight:600;white-space:nowrap;
+    background:var(--green);color:#fff !important;padding:10px 20px;border-radius:8px;
+    font-size:0.9rem;font-weight:600;white-space:nowrap;
   }
-  .nav .cta:hover{background:var(--green-light);}
-  @media (max-width:640px){ .nav nav a:not(.cta){display:none;} }
+  .nav .cta:hover{background:var(--green-light);color:#fff;}
+  @media (max-width:640px){ .nav nav a:not(.cta){display:none;} .nav nav{gap:12px;} }
+
+  /* Language switch */
+  .lang{
+    display:inline-flex;border:1px solid var(--border);border-radius:8px;overflow:hidden;
+  }
+  .lang button{
+    font-family:inherit;font-size:0.8rem;font-weight:600;letter-spacing:.04em;
+    border:0;background:var(--white);color:var(--muted);padding:8px 12px;cursor:pointer;
+  }
+  .lang button[aria-pressed="true"]{background:var(--green);color:#fff;}
+  .lang button:focus-visible,.nav a:focus-visible,.btn-primary:focus-visible,.btn-secondary:focus-visible{
+    outline:2px solid var(--green-light);outline-offset:2px;
+  }
 
   /* Hero */
   .hero{padding:90px 0 70px;}
+  @media (max-width:640px){ .hero{padding:56px 0 48px;} }
+  .hero{padding-bottom:0;}
+  .hero-grid{
+    display:grid;grid-template-columns:minmax(0,1fr) 480px;gap:48px;align-items:stretch;
+  }
+  .hero-text{padding-bottom:70px;align-self:center;}
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr;gap:20px;}
+    .hero-text{padding-bottom:0;}
+  }
+
+  /* Portrait: nested arches in the logo's ring colours, stretched to the height of the text */
+  .hero-photo{
+    --mx:0;--my:0;
+    position:relative;margin:0;width:100%;min-height:480px;
+    --c1:#7d4434;--c2:#e5a9a0;--c3:#e8c77d;--c4:#89b6c1;
+  }
+  @media (max-width:860px){ .hero-photo{max-width:380px;height:460px;min-height:0;margin:0 auto;} }
+  .hero-photo .arch{
+    position:absolute;bottom:0;border-radius:999px 999px 0 0;
+    left:calc(var(--i) * 16px);right:calc(var(--i) * 16px);top:calc(var(--i) * 16px);
+    background:var(--c);
+    transform:translate(calc(var(--mx) * (5 - var(--i)) * 2px), calc(var(--my) * (5 - var(--i)) * 1.5px));
+    transition:transform .35s ease-out;
+    animation:arch-rise .9s cubic-bezier(.2,.7,.2,1) both;
+    animation-delay:calc(var(--i) * 90ms);
+  }
+  @keyframes arch-rise{ from{transform:translateY(28px) scaleY(.94);transform-origin:bottom;} }
+  .hero-photo .a1{--i:0;--c:var(--c1);}
+  .hero-photo .a2{--i:1;--c:var(--c2);}
+  .hero-photo .a3{--i:2;--c:var(--c3);}
+  .hero-photo .a4{--i:3;--c:var(--c4);}
+  .hero-photo img{
+    position:absolute;left:64px;right:64px;top:64px;bottom:0;
+    width:calc(100% - 128px);height:calc(100% - 64px);
+    object-fit:cover;object-position:60% 18%;
+    border-radius:999px 999px 0 0;background:var(--peach);
+  }
+  @media (max-width:520px){
+    .hero-photo .arch{left:calc(var(--i) * 12px);right:calc(var(--i) * 12px);top:calc(var(--i) * 12px);}
+    .hero-photo img{left:48px;right:48px;top:48px;width:calc(100% - 96px);height:calc(100% - 48px);}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .hero-photo .arch{animation:none;transition:none;transform:none;}
+  }
   .hero .eyebrow{
     display:inline-block;background:var(--peach);color:var(--green);
     font-size:0.8rem;font-weight:600;padding:5px 14px;border-radius:999px;margin-bottom:18px;
   }
-  .hero h1{font-size:clamp(2.1rem,4.5vw,3.2rem);line-height:1.12;max-width:760px;}
+  .hero h1{font-size:clamp(2.1rem,4.5vw,3.2rem);line-height:1.12;max-width:760px;text-wrap:balance;color:var(--brown);}
   .hero p.lead{
     font-size:1.15rem;color:var(--muted);max-width:620px;margin-top:20px;
+  }
+  .hero p.lead + p.lead{margin-top:14px;}
+  .hero .name{
+    font-family:"Caveat","Segoe Script","Bradley Hand",cursive;font-weight:700;font-size:1.5em;line-height:1;
+    color:#23727f;letter-spacing:.01em;
   }
   .hero .actions{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap;}
   .btn-primary{
@@ -91,29 +159,50 @@
     display:inline-block;color:var(--green);font-size:0.82rem;font-weight:700;
     text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;
   }
-  .section-head h2{font-size:1.9rem;}
+  .section-head h2{font-size:1.9rem;text-wrap:balance;}
   .section-head p{color:var(--muted);margin-top:12px;font-size:1.02rem;}
 
   .services-grid{
     display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;
   }
   .service-card{
-    border:1px solid var(--border);border-radius:14px;padding:26px 24px;background:var(--white);
+    --bg:#7d4434;--fg:#ffffff;--fg2:rgba(255,255,255,.9);
+    border-radius:14px;padding:26px 24px;background:var(--bg);color:var(--fg);
   }
+  .service-card:nth-child(4n+2){--bg:#e5a9a0;--fg:#1a1a1a;--fg2:#3a2622;}
+  .service-card:nth-child(4n+3){--bg:#e8c77d;--fg:#1a1a1a;--fg2:#3a3018;}
+  .service-card:nth-child(4n+4){--bg:#89b6c1;--fg:#1a1a1a;--fg2:#1f3a41;}
   .service-card .check{
-    width:32px;height:32px;border-radius:50%;border:1.5px solid var(--green);
+    width:32px;height:32px;border-radius:50%;background:#fff;
     display:flex;align-items:center;justify-content:center;margin-bottom:14px;
   }
   .service-card .check svg{width:16px;height:16px;}
-  .service-card h3{font-size:1.05rem;color:var(--ink);margin-bottom:6px;}
-  .service-card p{color:var(--muted);font-size:0.95rem;margin:0;}
+  .service-card h3{font-size:1.05rem;color:var(--fg);margin-bottom:6px;}
+  .service-card p{color:var(--fg2);font-size:0.95rem;margin:0;}
 
   /* Approach (peach) */
-  .approach{background:var(--peach);}
+  .approach{
+    --wave-h:36px;--wave-w:480px;
+    position:relative;z-index:1;background:var(--peach);
+  }
+  @media (max-width:640px){ .approach{--wave-h:24px;--wave-w:320px;} }
+  .approach::before,.approach::after{
+    content:"";position:absolute;left:0;right:0;height:var(--wave-h);
+    background-repeat:repeat-x;background-size:var(--wave-w) var(--wave-h);pointer-events:none;
+  }
+  .approach::before{
+    top:calc(1px - var(--wave-h));
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 40' preserveAspectRatio='none'%3E%3Cpath fill='%23ffefea' d='M0 20C80 0 160 0 240 20S400 40 480 20V40H0Z'/%3E%3C/svg%3E");
+  }
+  .approach::after{
+    bottom:calc(1px - var(--wave-h));
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 40' preserveAspectRatio='none'%3E%3Cpath fill='%23ffefea' d='M0 0H480V20C400 40 320 40 240 20S80 0 0 20Z'/%3E%3C/svg%3E");
+  }
   .approach .grid{
     display:grid;grid-template-columns:1fr 1fr;gap:46px;align-items:start;
   }
-  @media (max-width:760px){ .approach .grid{grid-template-columns:1fr;} }
+  @media (max-width:760px){ .approach .grid{grid-template-columns:1fr;gap:32px;} }
+  .approach .section-head{margin-bottom:0;}
   .approach ul{list-style:none;margin:0;padding:0;}
   .approach li{
     display:flex;gap:14px;margin-bottom:22px;
@@ -126,23 +215,44 @@
   .approach li p{margin:0;color:var(--muted);font-size:0.95rem;}
 
   /* Track record */
-  .track{text-align:center;}
-  .track p.label{color:var(--muted);font-size:0.85rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:22px;}
-  .track .logos{
-    display:flex;justify-content:center;gap:18px;flex-wrap:wrap;
+  .track-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:center;}
+  @media (max-width:860px){ .track-grid{grid-template-columns:1fr;gap:32px;} }
+  .track-photo{margin:0;}
+  .track-photo img{
+    display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;
+    border-radius:20px 140px 20px 20px;background:var(--peach);
   }
-  .track .logos span{
-    font-family:"Lexend",sans-serif;font-weight:600;font-size:0.95rem;color:var(--green);
-    letter-spacing:.08em;padding:12px 26px;border:1px solid var(--border);border-radius:8px;
-    background:var(--white);
+  .track-text .eyebrow{
+    display:inline-block;color:var(--green);font-size:0.82rem;font-weight:700;
+    text-transform:uppercase;letter-spacing:.06em;margin-bottom:22px;
   }
+  .clients{list-style:none;margin:0;padding:0;display:grid;gap:22px;}
+  .client{
+    display:inline-block;font-family:"Lexend",sans-serif;font-weight:600;font-size:0.95rem;color:var(--green);
+    letter-spacing:.08em;padding:10px 22px;border:1px solid var(--border);border-radius:8px;background:var(--white);
+  }
+  .clients p{margin:10px 0 0;color:var(--muted);font-size:0.98rem;max-width:460px;}
 
   /* Contact */
-  .contact{background:var(--green);color:#fff;border-radius:20px;margin:0 28px;padding:64px 40px;text-align:center;}
-  .contact h2{color:#fff;font-size:1.8rem;}
-  .contact p{color:#e7ece8;max-width:520px;margin:14px auto 30px;font-size:1.02rem;}
-  .contact .btn-primary{background:#fff;color:var(--green);}
-  .contact .btn-primary:hover{background:var(--peach);}
+  .contact-head{margin-bottom:20px;}
+  .contact{background:var(--green);color:#fff;border-radius:20px;padding:52px 40px;text-align:center;}
+  @media (max-width:640px){ .contact{padding:40px 22px;} }
+  .contact h2{color:#fff;font-size:1.8rem;text-wrap:balance;}
+  .contact .rows{display:flex;justify-content:center;gap:10px 44px;flex-wrap:wrap;margin-top:22px;}
+  .contact .row{color:#e7ece8;margin:0;font-size:1.05rem;}
+  .contact .row a,.contact .linklike{
+    color:#fff;font:inherit;font-weight:600;text-decoration:none;cursor:pointer;
+    background:none;border:0;padding:0;border-bottom:1px solid rgba(255,255,255,.5);
+  }
+  .contact .row a:hover,.contact .linklike:hover{border-bottom-color:#fff;}
+  .contact .row a:focus-visible,.contact .linklike:focus-visible{outline:2px solid #fff;outline-offset:3px;}
+  .contact .hello{margin-top:36px;padding-top:26px;border-top:1px solid rgba(255,255,255,.22);}
+  .contact .hello-word{
+    font-family:"Lexend","Segoe UI",Arial,sans-serif;font-weight:600;font-size:1.9rem;line-height:1.2;
+    color:#e8c77d;min-height:2.3rem;transition:opacity .25s ease,transform .25s ease;
+  }
+  .contact .hello-word.out{opacity:0;transform:translateY(6px);}
+  .contact .hello-line{color:#fff;font-weight:700;margin:8px auto 0;font-size:1.05rem;max-width:620px;text-wrap:balance;}
 
   footer{padding:36px 0;text-align:center;color:var(--muted);font-size:0.85rem;}
   footer a{color:var(--green);text-decoration:none;font-weight:600;}
@@ -152,104 +262,68 @@
 
 <div class="wrap">
   <header class="nav">
-    <a href="#" class="logo"><span class="mark"></span>BUENAS</a>
+    <a href="#" class="logo" aria-label="Buenas Consulting"><img src="assets/logo.png" alt="Buenas Consulting" width="1482" height="447"></a>
     <nav>
-      <a href="#tjanster">Vad jag gör</a>
-      <a href="#arbetssatt">Hur jag jobbar</a>
-      <a href="#kontakt" class="cta">Kontakta mig</a>
+      <a href="#om" data-i18n="nav_about">Anna</a>
+      <a href="#tjanster" data-i18n="nav_services">Expertis</a>
+      <a href="#uppdrag" data-i18n="nav_assignments">Uppdrag</a>
+      <div class="lang" role="group" aria-label="Språk / Language">
+        <button type="button" id="lang-sv" data-lang="sv" aria-pressed="true">SV</button>
+        <button type="button" id="lang-en" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <a href="#kontakt" class="cta" data-i18n="nav_contact">Kontakta mig</a>
     </nav>
   </header>
 </div>
 
 <section class="hero">
-  <div class="wrap">
-    <span class="eyebrow">Digital strateg · Produktägare · Kommunikation &amp; förändring</span>
-    <h1>Jag hjälper er förenkla komplexitet – i produkten, i dokumentationen och i hur ni kommunicerar den.</h1>
-    <p class="lead">Buenas Consulting kombinerar digital strategi och produktägarskap med teknisk skrivning, UX writing och förändringsledning. Med Anna i spetsen – en person som går sömlöst mellan att sätta roadmap och att själv leverera resultatet.</p>
-    <div class="actions">
-      <a href="#kontakt" class="btn-primary">Boka ett samtal</a>
-      <a href="#tjanster" class="btn-secondary">Se vad jag gör</a>
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <span class="eyebrow" data-i18n="hero_eyebrow">Digital strateg · Produktägare · Kommunikation &amp; förändring</span>
+      <h1 data-i18n="hero_h1">Från komplexitet till klarhet – och från idé till resultat.</h1>
+      <p class="lead" data-i18n="hero_lead1">Buenas Consulting erbjuder senior konsultkompetens inom projektledning, verksamhets- och produktutveckling, content och teknisk kommunikation.</p>
+      <p class="lead" data-i18n-html="hero_lead2">Bakom Buenas står jag, <span class="name">Anna</span>. Jag kombinerar strategiskt perspektiv med operativ genomförandekraft – från att identifiera behov och skapa struktur till att samordna människor, driva arbetet framåt och leverera resultat.</p>
+      <div class="actions">
+        <a href="#kontakt" class="btn-primary" data-i18n="hero_cta1">Kontakta Anna</a>
+        <a href="#tjanster" class="btn-secondary" data-i18n="hero_cta2">Se vad jag erbjuder</a>
+      </div>
     </div>
+    <figure class="hero-photo" id="hero-photo">
+      <span class="arch a1"></span><span class="arch a2"></span><span class="arch a3"></span><span class="arch a4"></span>
+      <img src="assets/anna.jpg" alt="Anna, grundare av Buenas Consulting" data-i18n-alt="photo_alt" width="768" height="1022">
+    </figure>
   </div>
 </section>
 
-<section id="tjanster">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">Vad jag gör</span>
-      <h2>Bred expertis, en och samma leverantör</h2>
-      <p>Ni slipper koordinera flera olika konsulter – jag går mellan det strategiska och det operativa, beroende på vad uppdraget kräver.</p>
-    </div>
-    <div class="services-grid">
-
-      <div class="service-card">
-        <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#014932" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <h3>Digital strategi &amp; produktägarskap</h3>
-        <p>Kravinsamling, backlog, roadmap och utveckling av digitala plattformar tillsammans med utvecklare och verksamhet.</p>
-      </div>
-
-      <div class="service-card">
-        <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#014932" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <h3>Projekt- &amp; förändringsledning</h3>
-        <p>Leder och koordinerar team, planerar leveranser och driver processförbättringar när nya arbetssätt ska in.</p>
-      </div>
-
-      <div class="service-card">
-        <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#014932" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <h3>Teknisk dokumentation</h3>
-        <p>Tydliga, användarvänliga manualer och API-dokumentation som minskar supportbehov och förenklar komplexa produkter.</p>
-      </div>
-
-      <div class="service-card">
-        <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#014932" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <h3>UX writing &amp; content design</h3>
-        <p>Koncisa, användarcentrerade texter i digitala produkter som guidar användaren och ökar konvertering.</p>
-      </div>
-
-      <div class="service-card">
-        <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#014932" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <h3>Innehållsstrategi &amp; struktur</h3>
-        <p>Metadata, styrningsmodeller, stilguider och lokalisering som håller ihop innehållet över tid.</p>
-      </div>
-
-      <div class="service-card">
-        <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#014932" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <h3>Lansering, utbildning &amp; workshops</h3>
-        <p>Utbildningsmaterial och globala workshops som stöttar er när nya processer eller arbetssätt ska införas.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section id="arbetssatt" class="approach">
+<section id="om" class="approach">
   <div class="wrap">
     <div class="grid">
-      <div class="section-head" style="margin-bottom:0;">
-        <span class="eyebrow">Hur jag jobbar</span>
-        <h2>Strategiskt perspektiv, operativ genomförandekraft</h2>
-        <p>Jag trivs när jag får skapa struktur, identifiera behov och omsätta dem till konkreta lösningar tillsammans med verksamhet, användare och utvecklingsteam.</p>
+      <div class="section-head">
+        <span class="eyebrow" data-i18n="ap_eyebrow">Om mig</span>
+        <h2 data-i18n="ap_h2">Strategiskt perspektiv, operativ genomförandekraft</h2>
+        <p data-i18n="ap_p">Jag trivs bäst i gränslandet mellan verksamhet, teknik, innehåll och användare – särskilt i uppdrag där många delar behöver hänga ihop.</p>
+        <p data-i18n="ap_p2">Min bakgrund sträcker sig från teknisk kommunikation och digitalt innehåll till produktägarskap, business analysis, projektledning och koordinering av internationella team. Det gör att jag kan se både helheten och detaljerna, ställa rätt frågor och omsätta komplexa behov till tydliga arbetssätt och konkreta leveranser.</p>
       </div>
       <ul>
         <li>
           <span class="num">01</span>
           <div>
-            <h3>Personligt ägarskap</h3>
-            <p>Ni jobbar direkt med mig – inte en anonym byrå. Det ger snabbare beslut och en tydlig kontaktyta genom hela uppdraget.</p>
+            <h3 data-i18n="a1_t">Personligt ägarskap</h3>
+            <p data-i18n="a1_p">Ni arbetar direkt med mig genom hela uppdraget. Jag sätter mig snabbt in i verksamheten, tar ansvar för min del av leveransen och skapar tydlighet kring vad som behöver göras, av vem och varför.</p>
           </div>
         </li>
         <li>
           <span class="num">02</span>
           <div>
-            <h3>Fokus på att förenkla</h3>
-            <p>Oavsett om det handlar om teknisk dokumentation eller ett digitalt gränssnitt – målet är alltid att göra komplexitet begriplig.</p>
+            <h3 data-i18n="a2_t">Struktur i komplexa miljöer</h3>
+            <p data-i18n="a2_p">Jag är van vid tekniska produkter, stora informationsmängder, många intressenter och internationella team. Jag skapar struktur, identifierar beroenden och gör komplex information och komplexa processer lättare att förstå och arbeta med.</p>
           </div>
         </li>
         <li>
           <span class="num">03</span>
           <div>
-            <h3>Affärsnära nytta</h3>
-            <p>Jag formulerar och mäter alltid resultatet i affärstermer: minskat supportbehov, ökad konvertering, tydligare processer.</p>
+            <h3 data-i18n="a3_t">Från strategi till genomförande</h3>
+            <p data-i18n="a3_p">Jag stannar inte vid rekommendationer och presentationer. Jag kan sätta riktning, skapa roadmap och arbetssätt – men också arbeta operativt med innehåll, krav, dokumentation, koordinering och leverans. Det skapar kontinuitet från idé till färdigt resultat.</p>
           </div>
         </li>
       </ul>
@@ -257,31 +331,252 @@
   </div>
 </section>
 
-<section class="track">
+<section id="tjanster">
   <div class="wrap">
-    <p class="label">Uppdrag hos bland annat</p>
-    <div class="logos">
-      <span>SCANIA</span>
-      <span>ATLAS COPCO</span>
+    <div class="section-head">
+      <span class="eyebrow" data-i18n="svc_eyebrow">Vad jag erbjuder</span>
+      <h2 data-i18n="svc_h2">Bred kompetens – från strategi till genomförande</h2>
+      <p data-i18n="svc_p">Ni får en senior konsult som kan röra sig mellan verksamhet, teknik, innehåll och användare – och mellan strategiskt och operativt arbete beroende på vad uppdraget kräver.</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#014932" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h3 data-i18n="s1_t">Digital strategi &amp; produktägarskap</h3>
+        <p data-i18n="s1_p">Behovs- och kravanalys, backlog, roadmap och utveckling av digitala lösningar i nära samarbete med verksamhet, användare och utvecklingsteam.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#014932" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h3 data-i18n="s2_t">Projektledning &amp; verksamhetsutveckling</h3>
+        <p data-i18n="s2_p">Planerar och driver leveranser, koordinerar team och intressenter och utvecklar arbetssätt som skapar struktur, framdrift och tydligare processer.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#014932" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h3 data-i18n="s3_t">Teknisk kommunikation &amp; dokumentation</h3>
+        <p data-i18n="s3_p">Gör komplex information begriplig och användbar genom tydlig teknisk dokumentation, instruktioner och produktinformation anpassad efter målgrupp och användningsområde.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#014932" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h3 data-i18n="s4_t">Content &amp; UX writing</h3>
+        <p data-i18n="s4_p">Skapar och utvecklar innehåll utifrån målgrupp, syfte och kanal – för intern och extern kommunikation, digitala plattformar och produkter. Erfarenhet av copywriting och kunskap inom UX writing bidrar till tydliga budskap, rätt tonalitet och innehåll som fungerar i sitt sammanhang.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#014932" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h3 data-i18n="s5_t">Content strategy &amp; lokalisering</h3>
+        <p data-i18n="s5_p">Strukturerar och utvecklar innehåll, informationsflöden och riktlinjer för långsiktig kvalitet och återanvändning. Koordinerar även översättning och lokalisering för internationella marknader.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#014932" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h3 data-i18n="s6_t">Förändring, utbildning &amp; AI</h3>
+        <p data-i18n="s6_p">Stöttar införandet av nya lösningar och arbetssätt genom kommunikation, utbildningsmaterial och workshops. Använder och utforskar AI som verktyg för smartare innehållsarbete, analys och effektivare arbetsflöden.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="uppdrag" class="track">
+  <div class="wrap track-grid">
+    <figure class="track-photo">
+      <img src="assets/desk.jpg" alt="Ett arbetsbord med laptop, anteckningsbok, penna, kaffekopp och blommor" data-i18n-alt="desk_alt" width="1200" height="900" loading="lazy">
+    </figure>
+    <div class="track-text">
+      <span class="eyebrow" data-i18n="track_label">Uppdrag hos bland annat</span>
+      <ul class="clients">
+        <li>
+          <span class="client">SCANIA</span>
+          <p data-i18n="tr1_p">Ledande och koordinerande roll i internationella projekt med ansvar för planering, arbetssätt, team och leveranser inom teknisk produktinformation.</p>
+        </li>
+        <li>
+          <span class="client">ATLAS COPCO</span>
+          <p data-i18n="tr2_p">Produktägare och content strategist i ett globalt digitaliseringsinitiativ – från behov, roadmap och utveckling till innehåll, användarupplevelse och global lansering.</p>
+        </li>
+      </ul>
     </div>
   </div>
 </section>
 
 <section id="kontakt">
   <div class="wrap">
+    <div class="section-head contact-head">
+      <span class="eyebrow" data-i18n="ct_eyebrow">Kontakt</span>
+    </div>
     <div class="contact">
-      <h2>Har ni ett projekt där komplexiteten behöver redas ut?</h2>
-      <p>Berätta kort vad ni brottas med, så återkommer jag med hur jag kan hjälpa till.</p>
-      <a href="mailto:hello@buenas.se" class="btn-primary">hello@buenas.se</a>
+      <h2 data-i18n="ct_h2">Låt oss prata om era behov</h2>
+      <div class="rows">
+        <p class="row"><span data-i18n="ct_mail">E-post:</span> <button type="button" class="linklike" id="mail-link" data-u="hej" data-d="buenas" data-t="se" data-i18n="ct_mail_link">Skicka ett mejl</button></p>
+        <p class="row">LinkedIn: <a href="https://www.linkedin.com/in/akl" target="_blank" rel="noopener noreferrer">linkedin.com/in/akl</a></p>
+      </div>
+      <div class="hello">
+        <div class="hello-word" id="hello-word" aria-hidden="true">Buenas</div>
+        <p class="hello-line" data-i18n="ct_play">Hälsa rätt på alla språk – jag översätter mer än ord.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    Buenas Consulting AB · Anna · <a href="https://linkedin.com/in/annakl">LinkedIn</a>
+    Buenas Consulting AB · Anna · <a href="https://www.linkedin.com/in/akl">LinkedIn</a>
   </div>
 </footer>
+
+<script>
+  (function(){
+    var T = {
+      sv: {
+        title: "Buenas Consulting",
+        desc: "Buenas Consulting hjälper organisationer att förenkla komplexitet – från digital strategi och produktägarskap till teknisk dokumentation och UX writing. Med Anna i spetsen.",
+        nav_about: "Anna", nav_services: "Expertis", nav_assignments: "Uppdrag", nav_contact: "Kontakta mig",
+        photo_alt: "Anna, grundare av Buenas Consulting",
+        hero_eyebrow: "Digital strateg · Produktägare · Kommunikation & förändring",
+        hero_h1: "Från komplexitet till klarhet – och från idé till resultat.",
+        hero_lead1: "Buenas Consulting erbjuder senior konsultkompetens inom projektledning, verksamhets- och produktutveckling, content och teknisk kommunikation.",
+        hero_lead2: "Bakom Buenas står jag, <span class=\"name\">Anna</span>. Jag kombinerar strategiskt perspektiv med operativ genomförandekraft – från att identifiera behov och skapa struktur till att samordna människor, driva arbetet framåt och leverera resultat.",
+        hero_cta1: "Kontakta Anna", hero_cta2: "Se vad jag erbjuder",
+        svc_eyebrow: "Vad jag erbjuder",
+        svc_h2: "Bred kompetens – från strategi till genomförande",
+        svc_p: "Ni får en senior konsult som kan röra sig mellan verksamhet, teknik, innehåll och användare – och mellan strategiskt och operativt arbete beroende på vad uppdraget kräver.",
+        s1_t: "Digital strategi & produktägarskap", s1_p: "Behovs- och kravanalys, backlog, roadmap och utveckling av digitala lösningar i nära samarbete med verksamhet, användare och utvecklingsteam.",
+        s2_t: "Projektledning & verksamhetsutveckling", s2_p: "Planerar och driver leveranser, koordinerar team och intressenter och utvecklar arbetssätt som skapar struktur, framdrift och tydligare processer.",
+        s3_t: "Teknisk kommunikation & dokumentation", s3_p: "Gör komplex information begriplig och användbar genom tydlig teknisk dokumentation, instruktioner och produktinformation anpassad efter målgrupp och användningsområde.",
+        s4_t: "Content & UX writing", s4_p: "Skapar och utvecklar innehåll utifrån målgrupp, syfte och kanal – för intern och extern kommunikation, digitala plattformar och produkter. Erfarenhet av copywriting och kunskap inom UX writing bidrar till tydliga budskap, rätt tonalitet och innehåll som fungerar i sitt sammanhang.",
+        s5_t: "Content strategy & lokalisering", s5_p: "Strukturerar och utvecklar innehåll, informationsflöden och riktlinjer för långsiktig kvalitet och återanvändning. Koordinerar även översättning och lokalisering för internationella marknader.",
+        s6_t: "Förändring, utbildning & AI", s6_p: "Stöttar införandet av nya lösningar och arbetssätt genom kommunikation, utbildningsmaterial och workshops. Använder och utforskar AI som verktyg för smartare innehållsarbete, analys och effektivare arbetsflöden.",
+        ap_eyebrow: "Om mig",
+        ap_h2: "Strategiskt perspektiv, operativ genomförandekraft",
+        ap_p: "Jag trivs bäst i gränslandet mellan verksamhet, teknik, innehåll och användare – särskilt i uppdrag där många delar behöver hänga ihop.",
+        ap_p2: "Min bakgrund sträcker sig från teknisk kommunikation och digitalt innehåll till produktägarskap, business analysis, projektledning och koordinering av internationella team. Det gör att jag kan se både helheten och detaljerna, ställa rätt frågor och omsätta komplexa behov till tydliga arbetssätt och konkreta leveranser.",
+        a1_t: "Personligt ägarskap", a1_p: "Ni arbetar direkt med mig genom hela uppdraget. Jag sätter mig snabbt in i verksamheten, tar ansvar för min del av leveransen och skapar tydlighet kring vad som behöver göras, av vem och varför.",
+        a2_t: "Struktur i komplexa miljöer", a2_p: "Jag är van vid tekniska produkter, stora informationsmängder, många intressenter och internationella team. Jag skapar struktur, identifierar beroenden och gör komplex information och komplexa processer lättare att förstå och arbeta med.",
+        a3_t: "Från strategi till genomförande", a3_p: "Jag stannar inte vid rekommendationer och presentationer. Jag kan sätta riktning, skapa roadmap och arbetssätt – men också arbeta operativt med innehåll, krav, dokumentation, koordinering och leverans. Det skapar kontinuitet från idé till färdigt resultat.",
+        track_label: "Uppdrag hos bland annat",
+        desk_alt: "Ett arbetsbord med laptop, anteckningsbok, penna, kaffekopp och blommor",
+        tr1_p: "Ledande och koordinerande roll i internationella projekt med ansvar för planering, arbetssätt, team och leveranser inom teknisk produktinformation.",
+        tr2_p: "Produktägare och content strategist i ett globalt digitaliseringsinitiativ – från behov, roadmap och utveckling till innehåll, användarupplevelse och global lansering.",
+        ct_eyebrow: "Kontakt",
+        ct_h2: "Låt oss prata om era behov",
+        ct_mail: "E-post:",
+        ct_mail_link: "Skicka ett mejl",
+        ct_play: "Hälsa rätt på alla språk – jag översätter mer än ord."
+      },
+      en: {
+        title: "Buenas Consulting",
+        desc: "Buenas Consulting helps organisations simplify complexity – from digital strategy and product ownership to technical documentation and UX writing. With Anna at the helm.",
+        nav_about: "Anna", nav_services: "Expertise", nav_assignments: "Assignments", nav_contact: "Get in touch",
+        photo_alt: "Anna, founder of Buenas Consulting",
+        hero_eyebrow: "Digital strategist · Product owner · Communication & change",
+        hero_h1: "From complexity to clarity – and from idea to result.",
+        hero_lead1: "Buenas Consulting offers senior consulting expertise in project management, business and product development, content and technical communication.",
+        hero_lead2: "Behind Buenas is me, <span class=\"name\">Anna</span>. I combine a strategic perspective with operational drive – from identifying needs and creating structure to coordinating people, moving the work forward and delivering results.",
+        hero_cta1: "Contact Anna", hero_cta2: "See what I offer",
+        svc_eyebrow: "What I offer",
+        svc_h2: "Broad expertise – from strategy to delivery",
+        svc_p: "You get a senior consultant who can move between the business, technology, content and users – and between strategic and operational work, depending on what the assignment requires.",
+        s1_t: "Digital strategy & product ownership", s1_p: "Needs and requirements analysis, backlog, roadmap and development of digital solutions in close collaboration with the business, users and development teams.",
+        s2_t: "Project management & business development", s2_p: "Plans and drives deliveries, coordinates teams and stakeholders and develops ways of working that create structure, momentum and clearer processes.",
+        s3_t: "Technical communication & documentation", s3_p: "Makes complex information understandable and usable through clear technical documentation, instructions and product information tailored to the audience and context of use.",
+        s4_t: "Content & UX writing", s4_p: "Creates and develops content based on audience, purpose and channel – for internal and external communication, digital platforms and products. Experience in copywriting and knowledge of UX writing contribute to clear messages, the right tone and content that works in its context.",
+        s5_t: "Content strategy & localisation", s5_p: "Structures and develops content, information flows and guidelines for long-term quality and reuse. Also coordinates translation and localisation for international markets.",
+        s6_t: "Change, training & AI", s6_p: "Supports the introduction of new solutions and ways of working through communication, training material and workshops. Uses and explores AI as a tool for smarter content work, analysis and more efficient workflows.",
+        ap_eyebrow: "About me",
+        ap_h2: "Strategic perspective, operational execution",
+        ap_p: "I work best in the borderland between the business, technology, content and users – especially in assignments where many parts need to fit together.",
+        ap_p2: "My background ranges from technical communication and digital content to product ownership, business analysis, project management and coordination of international teams. This lets me see both the big picture and the details, ask the right questions and turn complex needs into clear ways of working and concrete deliverables.",
+        a1_t: "Personal ownership", a1_p: "You work directly with me throughout the assignment. I get up to speed on the business quickly, take responsibility for my part of the delivery and create clarity about what needs to be done, by whom and why.",
+        a2_t: "Structure in complex environments", a2_p: "I'm used to technical products, large volumes of information, many stakeholders and international teams. I create structure, identify dependencies and make complex information and processes easier to understand and work with.",
+        a3_t: "From strategy to delivery", a3_p: "I don't stop at recommendations and presentations. I can set direction, create roadmaps and ways of working – but also work hands-on with content, requirements, documentation, coordination and delivery. That creates continuity from idea to finished result.",
+        track_label: "Assignments for, among others",
+        desk_alt: "A desk with a laptop, notebook, pen, coffee cup and flowers",
+        tr1_p: "Leading and coordinating role in international projects, responsible for planning, ways of working, teams and deliveries within technical product information.",
+        tr2_p: "Product owner and content strategist in a global digitalisation initiative – from needs, roadmap and development to content, user experience and global launch.",
+        ct_eyebrow: "Contact",
+        ct_h2: "Let's talk about your needs",
+        ct_mail: "Email:",
+        ct_mail_link: "Send an email",
+        ct_play: "Greet people right in every language – I translate more than words."
+      }
+    };
+
+    function apply(lang){
+      var d = T[lang];
+      document.documentElement.lang = lang;
+      document.title = d.title;
+      var meta = document.querySelector('meta[name="description"]');
+      if (meta) meta.setAttribute("content", d.desc);
+      document.querySelectorAll("[data-i18n]").forEach(function(el){
+        var k = el.getAttribute("data-i18n");
+        if (d[k] !== undefined) el.textContent = d[k];
+      });
+      document.querySelectorAll("[data-i18n-html]").forEach(function(el){
+        var k = el.getAttribute("data-i18n-html");
+        if (d[k] !== undefined) el.innerHTML = d[k];
+      });
+      document.querySelectorAll("[data-i18n-alt]").forEach(function(el){
+        var k = el.getAttribute("data-i18n-alt");
+        if (d[k] !== undefined) el.setAttribute("alt", d[k]);
+      });
+      document.querySelectorAll(".lang button").forEach(function(b){
+        b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false");
+      });
+    }
+
+    var lang = "sv";
+    try {
+      var saved = localStorage.getItem("buenas-lang");
+      if (saved === "sv" || saved === "en") lang = saved;
+      else if (!/^sv/i.test(navigator.language || "sv")) lang = "en";
+    } catch (e) {
+      if (!/^sv/i.test(navigator.language || "sv")) lang = "en";
+    }
+    apply(lang);
+
+    var hero = document.querySelector(".hero"), photo = document.getElementById("hero-photo");
+    if (hero && photo && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      hero.addEventListener("mousemove", function(e){
+        var r = hero.getBoundingClientRect();
+        photo.style.setProperty("--mx", (((e.clientX - r.left) / r.width) * 2 - 1).toFixed(3));
+        photo.style.setProperty("--my", (((e.clientY - r.top) / r.height) * 2 - 1).toFixed(3));
+      });
+      hero.addEventListener("mouseleave", function(){
+        photo.style.setProperty("--mx", 0); photo.style.setProperty("--my", 0);
+      });
+    }
+
+    var hw = document.getElementById("hello-word");
+    if (hw && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      var hi = [["Buenas","es"],["Hej","sv"],["Hello","en"],["Bonjour","fr"],["Guten Tag","de"],["Olá","pt"],["नमस्ते","hi"],["你好","zh-Hans"]], hn = 0;
+      setInterval(function(){
+        hw.classList.add("out");
+        setTimeout(function(){
+          hn = (hn + 1) % hi.length;
+          hw.textContent = hi[hn][0]; hw.setAttribute("lang", hi[hn][1]);
+          hw.classList.remove("out");
+        }, 260);
+      }, 1800);
+    }
+
+    var mail = document.getElementById("mail-link");
+    if (mail) {
+      mail.addEventListener("click", function(){
+        window.location.href = "mailto:" + mail.dataset.u + "@" + mail.dataset.d + "." + mail.dataset.t;
+      });
+    }
+
+    document.querySelectorAll(".lang button").forEach(function(b){
+      b.addEventListener("click", function(){
+        var l = b.getAttribute("data-lang");
+        apply(l);
+        try { localStorage.setItem("buenas-lang", l); } catch (e) {}
+      });
+    });
+  })();
+</script>
 
 </body>
 </html>
